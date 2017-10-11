@@ -98,9 +98,7 @@ export class CollectionComponent implements OnInit {
         newBook.id = this.books.length + 1;
         this._dataService.addBook(newBook)
           .subscribe(() => {
-            setTimeout(() => {
-              this.getBooks()
-            }, 500);
+            this.getBooks();
             this._snackBar.open(`Book added!`,
               'DISMISS', {
                 duration: 3000
