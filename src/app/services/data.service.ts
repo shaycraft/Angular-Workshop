@@ -24,6 +24,40 @@ export class DataService {
       .catch(this.handleError);
   }
 
+  getBook(id: number): Observable<IBook> {
+    return this.getBooks()
+      .map((books: IBook[]) => books.find(b => b.id === id))
+      .catch(this.handleError);
+  }
+
+  updateBook(book: IBook): Observable<void> {
+    return this._http.put(this._booksUrl, book)
+      .map((response: Response) => { return })
+      .catch(this.handleError);
+  }
+
+  getPreviousBookId(id: number): Observable<number> {
+    return this.getBooks()
+      .map((books: IBook[]) => {
+        return books[Math.max(0, books.findIndex(b => b.id === id) - 1)].id;
+      })
+      .catch(this.handleError);
+  }
+  getNextBookId(id: number): Observable<number> {
+    return this.getBooks()
+      .map((books: IBook[]) => {
+        return books[Math.min(books.length - 1, books.findIndex(b => b.id === id) + 1)].id;
+      })
+      .catch(this.handleError);
+  }
+  deleteBook(id: number): Observable<void> {
+    return this._http.delete(`${this._booksUrl}/${id}`)
+      .map((response: Response) => {
+        return;
+      })
+      .catch(this.handleError);
+  }
+
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message : error.status ?
       `${error.status} - ${error.statusText}` : 'Server error';

@@ -18,6 +18,7 @@ import { RatingComponent } from './rating/rating.component';
 import { HttpModule } from '@angular/http';
 import { TabsComponent } from './tabs/tabs.component';
 import { RouterModule } from "@angular/router";
+import { BookDetailComponent } from './book-detail/book-detail.component';
 //import { routing } from "./app.routing";
 
 @NgModule({
@@ -27,7 +28,8 @@ import { RouterModule } from "@angular/router";
     CollectionComponent,
     RatingCategoryPipe,
     RatingComponent,
-    TabsComponent
+    TabsComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule,

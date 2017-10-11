@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { CollectionComponent } from './collection/collection.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 
 const routes: Routes = [
   {
@@ -16,8 +17,11 @@ const routes: Routes = [
     path: '',
     redirectTo: '/about',
     pathMatch: 'full'
+  },
+  {
+    path: 'collection/:id',
+    component: BookDetailComponent
   }
-
 ];
 
 @NgModule({
