@@ -58,6 +58,14 @@ export class DataService {
       .catch(this.handleError);
   }
 
+  addBook(book: IBook): Observable<void> {
+    return this._http.post(this._booksUrl, book)
+    .map((response: Response) => {
+      return;
+    })
+    .catch(this.handleError);
+  }
+
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message : error.status ?
       `${error.status} - ${error.statusText}` : 'Server error';
