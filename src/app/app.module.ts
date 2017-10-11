@@ -16,6 +16,9 @@ import { CollectionComponent } from './collection/collection.component';
 import { RatingCategoryPipe } from './pipes/rating-category.pipe';
 import { RatingComponent } from './rating/rating.component';
 import { HttpModule } from '@angular/http';
+import { TabsComponent } from './tabs/tabs.component';
+import { RouterModule } from "@angular/router";
+//import { routing } from "./app.routing";
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { HttpModule } from '@angular/http';
     AboutComponent,
     CollectionComponent,
     RatingCategoryPipe,
-    RatingComponent
+    RatingComponent,
+    TabsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,8 @@ import { HttpModule } from '@angular/http';
     MatInputModule,
     MatToolbarModule,
     BrowserAnimationsModule,
-    HttpModule
+    HttpModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
