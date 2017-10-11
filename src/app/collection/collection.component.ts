@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IBook } from '../ibook';
 import { MatSnackBar, MatDialog } from '@angular/material'
 import { DataService } from '../services/data.service';
 import { Router } from "@angular/router";
 import { BookDetailComponent } from '../book-detail/book-detail.component';
 import { NewBookComponent } from '../new-book/new-book.component';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   //selector: 'my-collection',
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.css']
 })
-export class CollectionComponent implements OnInit {
+export class CollectionComponent implements OnInit, OnDestroy {
   startTime: Date;
   endTime: Date;
   pageTitle: string = 'Books';
   showOperatingHours: boolean = false;
+  getBooksSubscription: Subscription;
+  bookDetailsSubscription: Subscription;
 
   public books: Array<IBook>;
 
@@ -30,12 +34,24 @@ export class CollectionComponent implements OnInit {
     this.getBooks();
   }
 
+  ngOnDestroy(): void {
+    console.log('Entering ngOnDestroy...');
+    if (this.getBooksSubscription) {
+      this.getBooksSubscription.unsubscribe();
+      console.log('Unsubscribed from getBooks');
+    }
+    if (this.bookDetailsSubscription) {
+      this.bookDetailsSubscription.unsubscribe();
+      console.log('Unsubscsribed from book details');
+    }
+  }
+
   getBooks(): void {
-    this._dataService.getBooks()
+    this.getBooksSubscription = this._dataService.getBooks()
       .subscribe(
       books => this.books = books,
       error => this.updateMessage(<any>error, 'ERROR')
-      )
+      );
   }
 
   updateMessage(message: string, type: string): void {
@@ -52,7 +68,7 @@ export class CollectionComponent implements OnInit {
   }
 
   updateBook(book: IBook) {
-    this._dataService.updateBook(book)
+    this.bookDetailsSubscription = this._dataService.updateBook(book)
       .subscribe(() => {
         this._snackBar.open(`"${book.title}" has been updated!`, 'DISMISS', {
           duration: 3000
