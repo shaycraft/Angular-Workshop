@@ -19,6 +19,7 @@ import { HttpModule } from '@angular/http';
 import { TabsComponent } from './tabs/tabs.component';
 import { RouterModule } from "@angular/router";
 import { BookDetailComponent } from './book-detail/book-detail.component';
+import { BookGuardService } from './guards/book-guard.service';
 //import { routing } from "./app.routing";
 
 @NgModule({
@@ -50,7 +51,7 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
     HttpModule,
     RouterModule
   ],
-  providers: [],
+  providers: [BookGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
