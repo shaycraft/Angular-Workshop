@@ -1,48 +1,33 @@
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
+
 import { IBook } from '../ibook';
+
 
 @Injectable()
 export class DataService {
+  private _booksUrl = 'http://waelsbookservice.azurewebsites.net/api/books';
 
-  constructor() { }
+  constructor(private _http: Http) { }
 
-  getBooks(): Array<IBook> {
-    return [
-      {
-        id: 1,
-        title: "JavaScript - The Good Parts",
-        author: "Douglas Crockford",
-        isCheckedOut: true,
-        rating: 3
-      },
-      {
-        id: 2,
-        title: "The Wind in the Willows",
-        author: "Kenneth Grahame",
-        isCheckedOut: false,
-        rating: 4
-      },
-      {
-        id: 3,
-        title: "Pillars of the Earth",
-        author: "Ken Follett",
-        isCheckedOut: true,
-        rating: 5
-      },
-      {
-        id: 4,
-        title: "Harry Potter and the Prisoner of Azkaban",
-        author: "J. K. Rowling",
-        isCheckedOut: false,
-        rating: 5
-      },
-      {
-        id: 5,
-        title: "Lord of the Rings",
-        author: "J.R.R. Tolkien",
-        isCheckedOut: false,
-        rating: 6
-      }
-    ];
+  getBooks(): Observable<IBook[]> {
+    return this._http.get(this._booksUrl)
+      .map((response: Response) => {
+        let data: IBook[] = <IBook[]>response.json();
+        return data;
+      })
+      .catch(this.handleError);
+  }
+
+  private handleError(error: any) {
+    let errMsg = (error.message) ? error.message : error.status ?
+      `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 }

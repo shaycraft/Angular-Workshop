@@ -24,7 +24,15 @@ export class CollectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.books = this._dataService.getBooks();
+    this.getBooks();
+  }
+
+  getBooks(): void {
+    this._dataService.getBooks()
+    .subscribe(
+      books => this.books = books,
+      error => this.updateMessage(<any>error, 'ERROR')
+    )
   }
 
   updateMessage(message: string, type: string): void {
