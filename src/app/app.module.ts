@@ -13,12 +13,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
 import { CollectionComponent } from './collection/collection.component';
+import { RatingCategoryPipe } from './pipes/rating-category.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent,
-    CollectionComponent
+    CollectionComponent,
+    RatingCategoryPipe
   ],
   imports: [
     BrowserModule,
