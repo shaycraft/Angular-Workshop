@@ -10,7 +10,7 @@ const routes: Routes = [
     },
     {
         path: ':id',
-        //canActivate: [BookGuardService],
+        canActivate: [BookGuardService],
         component: BookDetailComponent
     }
 ];

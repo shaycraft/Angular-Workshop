@@ -43,7 +43,7 @@ import { HttpModule }from '@angular/http';
         RatingCategoryPipe
     ],
     providers: [
-        //BookGuardService, 
+        BookGuardService, 
         DataService]
 })
 export class CollectionModule { }
