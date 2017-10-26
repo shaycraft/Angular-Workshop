@@ -5,6 +5,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/observable/throw'
+import 'rxjs/add/observable/of';
 
 import { IBook } from '../ibook';
 
@@ -13,14 +14,33 @@ import { IBook } from '../ibook';
 export class DataService {
   private _booksUrl = 'http://waelsbookservice.azurewebsites.net/api/books';
 
+  private books: IBook[] = [
+    {
+      id: 1,
+      title: "Lord of the Rings",
+      author: "J.R.R. Tolkien",
+      isCheckedOut: true,
+      rating: 5
+    },
+    {
+      id: 2,
+      title: "Women Who Work: Rewriting the Rules for Success",
+      author: "Ivanka Trump",
+      isCheckedOut: false, // who the fuck would check this out?
+      rating: 1
+    }
+  ]
+
   constructor(private _http: Http) { }
 
   getBooks(): Observable<IBook[]> {
-    return this._http.get(this._booksUrl)
-      .map((response: Response) => {
-        let data: IBook[] = <IBook[]>response.json();
-        return data;
-      })
+    // return this._http.get(this._booksUrl)
+    //   .map((response: Response) => {
+    //     let data: IBook[] = <IBook[]>response.json();
+    //     return data;
+    //   })
+    //   .catch(this.handleError);
+    return Observable.of(this.books).map((b) => b)
       .catch(this.handleError);
   }
 
